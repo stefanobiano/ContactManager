@@ -1,0 +1,194 @@
+#:kivy 1.9.0
+ScreenManager:
+    MapScreen:
+
+<MapScreen>:
+
+    BoxLayout:
+        orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (.3,1)
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: (1,.1)
+
+                Image:
+                    source: "search.png"
+                    size_hint: (.3,1)
+
+                SearchInput:
+                    id: ti
+                    text: ""
+                    multiline: False
+                    on_text: self.searchContact(grid, ti, deltiname, deltisurname, deltiphone, deltimail, deltides)
+                    size_hint: (.7,1)
+
+            Label:
+                text: "Ordina per:"
+                size_hint: (1,.1)
+
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 5
+                size_hint: (1,.1)
+                
+                SortButton:
+                    id: nameOrderButton
+                    text: 'name'
+                    on_press: self.sortByName()
+
+                SortButton:
+                    id: nameOrderButton
+                    text: 'surname'
+                    on_press: self.sortBySurname()
+
+            GridLayout:
+                id: grid
+                cols: 1
+
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: (.7,1)
+
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 10
+                size_hint: (1,.4)
+
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
+                    size_hint: (.7,1)
+
+                    TextInput:
+                    	id: deltiname
+                        text: "name"
+                        disabled: not nameCheckBox.active
+
+                    TextInput:
+                    	id: deltisurname
+                        text: "surname"
+                        disabled: not surnameCheckBox.active
+
+                    TextInput:
+                    	id: deltiphone
+                        text: "phone"
+                        disabled: not phoneCheckBox.active
+
+                    TextInput:
+                    	id: deltimail
+                        text: "mail"
+                        disabled: not mailCheckBox.active
+
+                    TextInput:
+                    	id: deltides
+                        text: "des"
+                        disabled: not desCheckBox.active
+
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
+                    size_hint: (.1,1)
+
+                    CheckBox:
+                        id: nameCheckBox
+                        text: 'CheckBox'
+                        active: False
+
+                    CheckBox:
+                        id: surnameCheckBox
+                        text: 'CheckBox'
+                        active: False
+
+                    CheckBox:
+                        id: phoneCheckBox
+                        text: 'CheckBox'
+                        active: False
+
+                    CheckBox:
+                        id: mailCheckBox
+                        text: 'CheckBox'
+                        active: False
+
+                    CheckBox:
+                        id: desCheckBox
+                        text: 'CheckBox'
+                        active: False
+
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
+                    size_hint: (.2,1)
+
+                    ModifyButton:
+                        text: 'save'
+                        on_press: self.changeName(deltiname, nameCheckBox, deltiphone.text)
+                
+                    ModifyButton:
+                        text: 'save'
+                        on_press: self.changeSurname(deltisurname, surnameCheckBox, deltiphone.text)    
+                
+                    Button:
+                        text: 'uneditable'
+                    
+                    ModifyButton:
+                        text: 'save'
+                        on_press: self.changeMail(deltimail, mailCheckBox, deltiphone.text)
+                
+                    ModifyButton:
+                        text: 'save'
+                        on_press: self.changeDes(deltides, desCheckBox, deltiphone.text)
+
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 10
+                size_hint: (1,.1)
+
+                DeleteButton:
+                    text: "Elimina"
+                    on_press: self.deleteContact(deltiphone.text)
+
+            GridLayout:
+                cols: 2
+                rows: 5
+                spacing: 10
+                size_hint: (1,.4)
+
+                Label:
+                    text: "name"
+                TextInput:
+                    id: aggtiname
+                    text: "name"
+                Label:
+                    text: "surname"
+                TextInput:
+                    id: aggtisurname
+                    text: "surname"
+                Label:
+                    text: "phone"
+                TextInput:
+                    id: aggtiphone
+                    text: "phone"
+                Label:
+                    text: "mail"
+                TextInput:
+                    id: aggtimail
+                    text: "mail"
+                Label:
+                    text: "des"
+                TextInput:
+                    id: aggtides
+                    text: "des"
+
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 10
+                size_hint: (1,.1)
+
+                AddButton:
+                    text: "Aggiungi"
+                    on_press: self.addContact(aggtiname.text, aggtisurname.text, aggtiphone.text, aggtimail.text, aggtides.text)
